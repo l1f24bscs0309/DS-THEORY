@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+template <class T>
 class Queue{
     public:
 
@@ -11,8 +12,8 @@ class Queue{
         virtual ~Queue() {}
         bool isEmpty() const;
         bool isFull() const;
-        virtual void enqueue(const int & value) = 0;
-        virtual int dequeue() = 0;
+        virtual void enqueue(const T & value) = 0;
+        virtual T dequeue() = 0;
         virtual void display(ostream &) const = 0;
 
     protected:
@@ -26,11 +27,13 @@ class Queue{
 };
 
 // Check if queue is empty
-bool Queue::isEmpty() const{
+template <class T>
+bool Queue<T>::isEmpty() const{
     return (count == 0);
 }
 
 // Check if queue is full
-bool Queue::isFull() const{
+template <class T>
+bool Queue<T>::isFull() const{
     return (count == maxCapacity );
 }

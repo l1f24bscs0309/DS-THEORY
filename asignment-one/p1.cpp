@@ -103,18 +103,19 @@ startOfQIndex = 0 , topOfQIndex = 3
 /********* GLOBAL FUNCTION PROTOTYPES *********/
 
 const int MAX_SIZE = 10;
-void readValues(Stack* st , istream& in);
-void stats(MyStack *s);
-void readQueue(Queue *q , istream& in);
-void statsQ(MyQueue *q);
+void readValues(Stack<int>* st , istream& in);
+void stats(MyStack<int> *s);
+void readQueue(Queue<int> *q , istream& in);
+void statsQ(MyQueue<int> *q);
 
 /********* MAIN FUNCTION *********/
-int main () {
-    MyStack s(MAX_SIZE);    
+
+int main () {  
+    MyStack<int> s(MAX_SIZE);
     readValues(&s , cin); 
     stats(&s);
 
-    MyQueue q(10);
+    MyQueue<int> q(10);
     readQueue(&q , cin);
     statsQ(&q);
 
@@ -124,7 +125,7 @@ int main () {
 
 /********* FUNCTION DEFINITIONS *********/
 
-void readValues(Stack* st , istream& in){
+void readValues(Stack<int>* st , istream& in){
     cout << "Enter the size of stack: " ;
     int N;
     in >> N;
@@ -138,7 +139,7 @@ void readValues(Stack* st , istream& in){
     }
 }
 
-void stats(MyStack *s){
+void stats(MyStack<int> *s){
     
     MyStack temp(*s);
     int max , min , sum = 0 , counter = 1;
@@ -166,7 +167,7 @@ void stats(MyStack *s){
 
 }
 
-void readQueue(Queue *q , istream& in){
+void readQueue(Queue<int> *q , istream& in){
     cout << "\nEnter the number of elemnts: ";
     int N;
     in >> N;
@@ -180,7 +181,7 @@ void readQueue(Queue *q , istream& in){
     }
 }
 
-void statsQ(MyQueue *q){
+void statsQ(MyQueue<int> *q){
     MyQueue temp(*q);
     int max , min , sum = 0 , counter = 1;
     max = temp.dequeue();

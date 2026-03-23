@@ -1,19 +1,20 @@
 #pragma once
 #include "Queue.h"
 
-class MyQueue: public Queue{
+template <class T>
+class MyQueue: public Queue<T>{
     public:
 
-        MyQueue(int s): Queue(s){
+        MyQueue(int s): Queue<T>(s){
             if(s != 0){
-                values = new int[maxCapacity]{0};
+                values = new T[this->maxCapacity]{0};
             }
         }
 
-        MyQueue(const MyQueue & mq): Queue(mq){
-            if(maxCapacity != 0){
-                values = new int[maxCapacity]{0};
-                for(int i = 0; i < count; i++){
+        MyQueue(const MyQueue & mq): Queue<T>(mq){
+            if(this->maxCapacity != 0){
+                values = new T[this->maxCapacity]{0};
+                for(int i = 0; i < this->count; i++){
                     values[i] = mq.values[i];
                 }
             }
@@ -25,8 +26,8 @@ class MyQueue: public Queue{
                 values = nullptr;
             }
         }
-        void enqueue(const int & value);
-        int dequeue();
+        void enqueue(const T & value);
+        T dequeue();
         void display(ostream &) const;
 
     protected:
@@ -34,51 +35,54 @@ class MyQueue: public Queue{
 };
 
 // Add (insert element at topOfQIndex)
-void MyQueue::enqueue(const int & value)
+template <class T>
+void MyQueue<T>::enqueue(const T & value)
 {
-    if (isFull()) {
+    if (this->isFull()) {
         cout << "MyQueue is FULL! Cannot add " << value << endl;
         return;
     }
-    if (isEmpty()) { // First element insertion
-        topOfQIndex = 0;
+    if (this->isEmpty()) { // First element insertion
+        this->topOfQIndex = 0;
     }
-    startOfQIndex++;
-    values[startOfQIndex] = value;
-    count++;
+    this->startOfQIndex++;
+    values[this->startOfQIndex] = value;
+    this->count++;
 }
 
 // Remove (remove element from startOfQIndex)
-int MyQueue::dequeue() {
-    if (isEmpty()) {
+template <class T>
+T MyQueue<T>::dequeue() {
+    if (this->isEmpty()) {
         cout << "MyQueue is EMPTY! Cannot remove." << endl;
         return -1;
     }
-    int removedValue = values[topOfQIndex];
-    count--;
-    topOfQIndex++;
+    int removedValue = values[this->topOfQIndex];
+    this->count--;
+    this->topOfQIndex++;
     // If queue becomes empty after remove, reset it
-    if (isEmpty()) {
-        startOfQIndex = topOfQIndex = -1;
+    if (this->isEmpty()) {
+        this->startOfQIndex = this->topOfQIndex = -1;
     }
     return removedValue;
 }
 
 // Display the queue
-void MyQueue::display(ostream & W) const{
-    W <<"Queue::startOfQIndex: " << startOfQIndex
-        <<", topOfQIndex: " << topOfQIndex
-        <<", maxCapacity: " << maxCapacity
-        <<", count: " << count << endl;
-    if (isEmpty()) {
+template <class T>
+void MyQueue<T>::display(ostream & W) const{
+    W <<"Queue::startOfQIndex: " << this->startOfQIndex
+        <<", topOfQIndex: " << this->topOfQIndex
+        <<", maxCapacity: " << this->maxCapacity
+        <<", count: " << this->count << endl;
+    if (this->isEmpty()) {
         cout << "___\n";
         cout << "___\n";
         return;
     }
 
-    int n = topOfQIndex;
+    int n = this->topOfQIndex;
     W <<"----------------------------\n";
-    for(int i = startOfQIndex ; i >= n ; i--){
+    for(int i = this->startOfQIndex ; i >= n ; i--){
       W << values[i];
         if(i > 0 && i != n){
         W << " -> ";
