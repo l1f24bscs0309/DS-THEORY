@@ -11,6 +11,7 @@ class MyStack: public Stack<T> {
         void push(T v);
         bool pop(T & v);
         T top();
+        void display();
 };
 
 template <class T>
@@ -36,5 +37,16 @@ T MyStack<T>::top(){
     if(!this->isEmpty()){
         return this->values[this->currentIndex];
     }
-    return -1;
+    return T{};
 }
+
+template <class T>
+void MyStack<T>::display(){
+    MyStack temp(*this);
+    T val;
+    while(!temp.isEmpty()){
+        temp.pop(val);
+        cout << val << " ";
+    }
+}
+

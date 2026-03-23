@@ -9,6 +9,7 @@ class Stack {
         virtual void push(T v) = 0; // increments currentIndex and add value if not full
         virtual bool pop(T & value) = 0; // if not empty returns the value at the currentIndex and decrements
         virtual T top() = 0; // if not empty returns the value at the currentIndex
+        virtual void display() = 0;
         bool isEmpty( );
         bool isFull( );
 
@@ -22,14 +23,14 @@ template <class T>
 Stack<T>::Stack(int _maxCapacity) {
     currentIndex = -1;
     maxCapacity = _maxCapacity;
-    values = new T[maxCapacity]{0};
+    values = new T[maxCapacity]{};
 }
 
 template <class T>
 Stack<T>::Stack(const Stack & s) {
     maxCapacity = s.maxCapacity;
     currentIndex = s.currentIndex;
-    values = new T[maxCapacity]{0};
+    values = new T[maxCapacity]{};
     for(int i = 0; i < maxCapacity; i++)
     {
         values[i] = s.values[i];

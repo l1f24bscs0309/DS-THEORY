@@ -7,13 +7,13 @@ class MyQueue: public Queue<T>{
 
         MyQueue(int s): Queue<T>(s){
             if(s != 0){
-                values = new T[this->maxCapacity]{0};
+                values = new T[this->maxCapacity]{};
             }
         }
 
         MyQueue(const MyQueue & mq): Queue<T>(mq){
             if(this->maxCapacity != 0){
-                values = new T[this->maxCapacity]{0};
+                values = new T[this->maxCapacity]{};
                 for(int i = 0; i < this->count; i++){
                     values[i] = mq.values[i];
                 }
@@ -29,9 +29,10 @@ class MyQueue: public Queue<T>{
         void enqueue(const T & value);
         T dequeue();
         void display(ostream &) const;
+        Queue<T>& operator=(const Queue<T>& q);
 
     protected:
-        int * values;
+       T * values;
 };
 
 // Add (insert element at topOfQIndex)
@@ -55,9 +56,9 @@ template <class T>
 T MyQueue<T>::dequeue() {
     if (this->isEmpty()) {
         cout << "MyQueue is EMPTY! Cannot remove." << endl;
-        return -1;
+        return T{};
     }
-    int removedValue = values[this->topOfQIndex];
+    T removedValue = values[this->topOfQIndex];
     this->count--;
     this->topOfQIndex++;
     // If queue becomes empty after remove, reset it
