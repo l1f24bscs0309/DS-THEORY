@@ -393,6 +393,8 @@ void freq(MyQueue<string> *q){
             revWords.enqueue(w);
             revFreq.enqueue(f);
         }
+        // i know there is an error here since it is making a shallow copy and and this can be done by making the assignment 
+        // operator in the queue class i have done it in my code but i have not added it here since we were explicitly told not to change the class.
         words = revWords;
         freq  = revFreq;
     }
