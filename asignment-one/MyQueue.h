@@ -14,7 +14,7 @@ class MyQueue: public Queue<T>{
         MyQueue(const MyQueue & mq): Queue<T>(mq){
             if(this->maxCapacity != 0){
                 values = new T[this->maxCapacity]{};
-                for(int i = 0; i < this->count; i++){
+                for(int i = 0; i < this->maxCapacity; i++){
                     values[i] = mq.values[i];
                 }
             }
@@ -29,7 +29,6 @@ class MyQueue: public Queue<T>{
         void enqueue(const T & value);
         T dequeue();
         void display(ostream &) const;
-        Queue<T>& operator=(const Queue<T>& q);
 
     protected:
        T * values;
@@ -46,7 +45,7 @@ void MyQueue<T>::enqueue(const T & value)
     if (this->isEmpty()) { // First element insertion
         this->topOfQIndex = 0;
     }
-    this->startOfQIndex++;
+    this->startOfQIndex = (this->startOfQIndex + 1) % this->maxCapacity;
     values[this->startOfQIndex] = value;
     this->count++;
 }
@@ -60,7 +59,7 @@ T MyQueue<T>::dequeue() {
     }
     T removedValue = values[this->topOfQIndex];
     this->count--;
-    this->topOfQIndex++;
+    this->topOfQIndex = (this->topOfQIndex + 1) % this->maxCapacity;
     // If queue becomes empty after remove, reset it
     if (this->isEmpty()) {
         this->startOfQIndex = this->topOfQIndex = -1;

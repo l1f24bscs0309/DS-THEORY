@@ -14,7 +14,6 @@ class Queue{
         bool isFull() const;
         virtual void enqueue(const T & value) = 0;
         virtual T dequeue() = 0;
-        virtual void display(ostream &) const = 0;
 
     protected:
 
@@ -37,5 +36,3 @@ template <class T>
 bool Queue<T>::isFull() const{
     return (count == maxCapacity );
 }
-
-
