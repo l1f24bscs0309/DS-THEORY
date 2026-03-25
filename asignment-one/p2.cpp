@@ -37,8 +37,9 @@ best.
 
 stack currentIndex = 5 
 
-3. To count the number of words and character , first u make a copy of the stack and two variables for holding the count of words and characters then u start popping it untill
-it is empty and on each pop increase the word count and then loop on that word to count the number of characters and increment
+3. To count the number of words and character , first u make a copy of the stack and two variables for holding the count of words and 
+characters then u start popping it untill it is empty and on each pop increase the word count 
+and then loop on that word to count the number of characters and increment
 them . 
 
 4. to reverse print the senctence we make copy of the stack and pop each word and print it since stack is LIFO it will print the words in reverse order and then print a full stop at the end.
