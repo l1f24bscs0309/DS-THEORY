@@ -1,8 +1,6 @@
 // SPRING 2026 DATA STRUCTURES SECTION D20 ASSIGNMENT THREE
 // Name of Student: MUHAMMAD IKRAM UL HAQ
 // Registration of Student: L1F24BSCS0309
-// File A3_PROBLEM_2.cpp contains complete code of ADT Stack (Tasks 3, 4, 5),
-// that will compile and run
 
 /*
 PROBLEM DESCRIPTION:
