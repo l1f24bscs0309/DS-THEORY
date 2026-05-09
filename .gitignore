@@ -1,3 +1,11 @@
 # .gitignore
 out
 main
+
+# CLion / IntelliJ
+.idea/
+
+# CMake build directories
+cmake-build-debug/
+cmake-build-release/
+cmake-build-*/
