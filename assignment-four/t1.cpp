@@ -93,15 +93,11 @@ int main () {
 }
 
 /*
- *The base case of this function is when n is less than or equal to 1, 
- *in which case it returns false, indicating that n is not a prime number. 
- *If n is equal to 2, it returns true, indicating that n is a prime number. 
- *For other values of n, the function uses a static variable i to 
- *check for divisibility starting from 2. If n is divisible by i, 
- *it resets i to 2 and returns false. If i squared is greater than n, 
- *it resets i to 2 and returns true, indicating that n is a prime number. 
- *Otherwise, it increments i and continues checking recursively.
-*/
+ * - Purpose: Checks whether n is prime using recursive divisor testing.
+ * - Base case: n <= 1 -> false, n == 2 -> true, or i*i > n -> true.
+ * - Recursive case: If n is not divisible by i, increment i and recurse on n
+ *   until a divisor is found or the square-root limit is crossed.
+ */
 bool isPrime(int n){
     if (n <= 1) return false;
     if (n == 2) return true;
@@ -122,14 +118,10 @@ bool isPrime(int n){
 }
 
 /*
- * This function calculates the average, maximum, and minimum of an array of integers.
- * It uses static variables to keep track of the current index and the sum of the elements.
- * The function recursively processes each element of the array until it reaches the end.
- * When the index reaches the size of the array, it calculates the average by dividing the sum
- * by the size, resets the sum and index for future calls, and returns.
- * During the recursive calls, it updates the maximum and minimum values based on the current element.
- * The maximum is updated if the current element is greater than the current maximum, and the minimum is updated
- * if the current element is less than the current minimum.
+ * - Purpose: Computes average, maximum, and minimum of array elements.
+ * - Base case: When index reaches size, compute average and reset static state.
+ * - Recursive case: Process a[index], update sum/max/min, increment index, and
+ *   recurse until all elements are handled.
  */
 
 void stats(int a[], int size, float & average, int & maximum, int & minimum){
@@ -163,11 +155,10 @@ void stats(int a[], int size, float & average, int & maximum, int & minimum){
 }
 
 /*
- * This function copies elements from a source array (src) to a destination array (dst) recursively.
- * It takes three parameters: the source array, the destination array, and the size of the arrays.
- * The base case of the recursion is when the size is zero, in which case the function returns without doing anything.
- * For each recursive call, it copies the last element of the source array to the corresponding position in the destination array,
- * and then calls itself with a reduced size (size - 1) to copy the remaining elements.
+ * - Purpose: Copies source array into destination recursively.
+ * - Base case: If size is 0, nothing remains to copy.
+ * - Recursive case: Copy element at size-1, then recurse with size-1 to copy
+ *   the remaining prefix of the array.
  */
 void copy(int src[], int dst[], int size){
     if (size == 0) return;
@@ -178,14 +169,10 @@ void copy(int src[], int dst[], int size){
 
 
 /*
- * This function removes duplicate elements from an array of integers. 
- * It takes a reference to a pointer to the array and a reference to the size of the array as parameters.
- * The function uses static variables i and j to keep track of the current indices being compared.
- * The base case of the recursion is when the size of the array is less than or equal to 1, or when i has reached the end of the array.
- * If j has reached the end of the array, it increments i and resets j to be one position ahead of i, then calls itself recursively.
- * If a duplicate is found (i.e., a[i] == a[j]), it shifts all elements after j one position to the left, effectively removing the duplicate,
- * decrements the size of the array, and calls itself recursively without incrementing j (to check for any further duplicates at the same position).
- * If no duplicate is found, it simply increments j and continues checking for duplicates.
+ * - Purpose: Removes duplicate values in-place from the array.
+ * - Base case: Stop when size <= 1 or when i reaches the last compare position.
+ * - Recursive case: Compare a[i] and a[j]; if equal, shift left and reduce size;
+ *   otherwise advance j, and when j ends move to next i and recurse again.
  */
 void removeDuplicates(int * & a, int & size){
     static int i = 0, j = 1;
@@ -214,11 +201,12 @@ void removeDuplicates(int * & a, int & size){
     removeDuplicates(a, size);
 }
 
-// THSE ARE HELPER FUNCTIONS FOR THE FREQUENCIES FUNCTION
+// THESE ARE HELPER FUNCTIONS FOR THE FREQUENCIES FUNCTION
 /*
- * this function checks if the value passed in it already exists in the array
- * to the current index. it uses recursion to check all the elements before the current index
- * if it finds the value it returns true otherwise it returns false after checking all the elements before the current index
+ * - Helper for buildFrequencies.
+ * - Purpose: Checks whether value already appeared before currentIndex.
+ * - Base case: If checkIndex reaches currentIndex, value was not seen before.
+ * - Recursive case: Compare current slot; if unmatched, recurse with checkIndex+1.
  */
 bool alreadySeen(int a[] , int currentIndex , int value , int checkIndex = 0){
     if(checkIndex >= currentIndex) return false;
@@ -228,11 +216,11 @@ bool alreadySeen(int a[] , int currentIndex , int value , int checkIndex = 0){
 }
 
 /*
- * this function counts the occurrences of a value in the array starting from the current index
- * it uses recursion to check all the elements in the array and count how many times the value appears
- * if it finds the value it adds 1 to the count and continues checking the rest of the array
- * if it doesn't find the value it just continues checking the rest of the array without adding to the count
- * when it reaches the end of the array it returns the total count of occurrences
+ * - Helper for buildFrequencies.
+ * - Purpose: Counts total occurrences of value in the full array.
+ * - Base case: If index reaches size, return 0.
+ * - Recursive case: Add 1 when a[index] matches value, then recurse at index+1
+ *   and accumulate the count from the remaining elements.
  */
 int countOccurrneces(int a[], int size, int value, int index = 0){
     if (index >= size) return 0;
@@ -244,11 +232,11 @@ int countOccurrneces(int a[], int size, int value, int index = 0){
 }
 
 /*
- * this function builds the frequencies of unique elements in the array
- * it uses recursion to check each element in the array and count its occurrences
- * if the element has not been seen before (checked using alreadySeen function) it counts its occurrences and adds it to the freq array
- * it also keeps track of the count of unique elements found so far and updates it accordingly
- * when it reaches the end of the array it returns and the freq array will contain the frequencies of all unique elements in the original array
+ * - Helper for frequencies.
+ * - Purpose: Builds freq[] for unique values only.
+ * - Base case: If index reaches size, building is complete.
+ * - Recursive case: For each value, if unseen before, compute its occurrence
+ *   count, store it, increment unique counter, then recurse to next index.
  */
 void buildFrequencies(int a[] , int size , int freq[] , int &count , int index = 0){
     if (index >= size) return;
@@ -261,8 +249,9 @@ void buildFrequencies(int a[] , int size , int freq[] , int &count , int index =
 }
 
 /*
- * this function initializes the freq array and calls the buildFrequencies function to fill it with the frequencies of unique elements in the input array
- * it also returns the freq array and updates the noOfFrequencies variable with the count of unique elements found
+ * - Purpose: Allocates frequency array and starts recursive build.
+ * - Base/recursive flow: Recursion is handled by buildFrequencies; this
+ *   function initializes noOfFrequencies and returns the filled array.
  */
 
 int * frequencies(int a[], int size, int & noOfFrequencies){
@@ -273,13 +262,10 @@ int * frequencies(int a[], int size, int & noOfFrequencies){
 }
 
 /*
- * this function inserts a value at a specified position in the array by shifting elements to the right
- * it takes the array, its size, the value to be inserted, and the position where the value should be inserted as parameters
- * the base case of the recursion is when the size is less than or equal to the position, in which case it directly inserts the value at the specified position
- * if the size is greater than the position, it shifts the last element of the array to the right (size - 1) and then calls itself recursively with a reduced 
- * size (size - 1) to continue shifting elements until it reaches the position where the new value should be inserted
- * once the position is reached, the new value is inserted and the function returns, resulting in the array being updated 
- * with the new value at the specified position and all subsequent elements shifted to the right
+ * - Purpose: Inserts value at pos by shifting elements right recursively.
+ * - Base case: When size <= pos, place value at a[pos].
+ * - Recursive case: Move a[size-1] to a[size], then recurse with size-1
+ *   until the insertion position is reached.
  */
 void insert(int a[], int size, int value, int pos){
     if (size <= pos){
@@ -292,13 +278,10 @@ void insert(int a[], int size, int value, int pos){
 }
 
 /*
- * this function deletes a value at a specified position in the array by shifting elements to the left
- * it takes the array, its size, and the position of the value to be deleted as parameters
- * the base case of the recursion is when the position is greater than or equal to size - 1, in which case it simply returns without doing anything
- * if the position is valid, it shifts the element at pos + 1 to pos, effectively overwriting the value at pos with the next value in the array
- * then it calls itself recursively with an incremented position (pos + 1) to continue shifting elements to the left until it reaches the end of the array
- * once it reaches the end of the array, all elements after the deleted position will have been shifted left, 
- * and the last element will be duplicated (but can be ignored since size is reduced)
+ * - Purpose: Deletes value at pos by shifting following elements left.
+ * - Base case: If pos reaches size-1, shifting is complete.
+ * - Recursive case: Copy a[pos+1] into a[pos], then recurse with pos+1 to
+ *   keep left-shifting until the end.
  */
 
 void deleteValue(int a[], int size, int pos){
