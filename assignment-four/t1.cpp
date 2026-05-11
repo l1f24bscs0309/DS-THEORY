@@ -68,6 +68,7 @@ int main () {
         cout << freq[i] << " ";
     }
     cout << "\n";
+    delete[] freq;
 
    cout << "\n================ Testing insert Function ================\n"; 
     int arrForInsert[6] = {1, 2, 3, 4, 5}; // size is 6 to accommodate the new element
@@ -145,7 +146,7 @@ void stats(int a[], int size, float & average, int & maximum, int & minimum){
         maximum = a[index];
     }
 
-    if(a[index] < maximum){
+    if(a[index] < minimum){
         minimum = a[index];
     }
 

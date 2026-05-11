@@ -124,7 +124,8 @@ void recursiveCopy(ConcreteDoublyLinkedList<int> src, ConcreteDoublyLinkedList<i
 int max(ConcreteDoublyLinkedList<int> dll){
     if(dll.isEmpty()) return 0;
     int val = dll.removeFromFirst();
-    return val > max(dll) ? val : max(dll);
+    int maxRest = max(dll);
+    return (val > maxRest) ? val : maxRest;
 }
 
 /*
@@ -176,6 +177,7 @@ void insert(ConcreteDoublyLinkedList<int> &dll, int value, int position){
  *   saved value back at last while unwinding.
  */
 void deleteValue(ConcreteDoublyLinkedList<int> &dll, int position){
+    if (dll.isEmpty()) return;
     int val = dll.removeFromLast();
     if(position == 0) return;
     deleteValue(dll,position-1);

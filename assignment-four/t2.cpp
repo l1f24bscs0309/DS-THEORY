@@ -113,7 +113,8 @@ int max(ArrayStack<int> as){
     if(as.isEmpty()) return 0;
     int val = 0;
     as.pop(val);
-    return val > max(as) ? val : max(as);
+    int maxOfRest = max(as);
+    return val > maxOfRest ? val : maxOfRest;
 }
 
 /*

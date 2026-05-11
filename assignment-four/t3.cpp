@@ -38,7 +38,7 @@ int main () {
     cout << "\n================ Queue Copy =================\n";
     ArrayQueue<int> copy(10);
     recursiveCopy(aq,copy);
-    display(aq);
+    display(copy);
 
     cout << "\n================== Queue Max ==============\n";
     cout << max(aq);
@@ -132,7 +132,8 @@ void recursiveCopy(ArrayQueue<int> src, ArrayQueue<int> & copy){
 int max(ArrayQueue<int> aq){
     if (aq.isEmpty()) return 0;
     int val = aq.dequeue();
-    return val > max(aq) ? val : max(aq);
+    int maxOfRest = max(aq);
+    return val > maxOfRest ? val : maxOfRest;
 }
 
 /*
