@@ -108,6 +108,8 @@ public:
   void inorderDisplay() const;
   void preorderDisplay() const;
   void postorderDisplay() const;
+  Node<T> *getRoot() const { return this->root; }
+  void setRoot(Node<T> *newRoot) { this->root = newRoot; }
 };
 
 template <class T> void BinarySearchTree<T>::display() const {
