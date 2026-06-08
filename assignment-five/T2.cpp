@@ -3,6 +3,9 @@ using namespace std;
 #include "Node.h"
 #include "BinaryTree.h"
 #include "BinarySearchTree.h"
+#include "ListNode.h"
+#include "DoublyLinkedList.h"
+#include "ConcreteDoublyLinkedList.h"
 
 template <class T>
 void swapSubTrees(Node<T>* node) {
@@ -46,6 +49,16 @@ Node<T>* returnTreeFromMatchingValue(Node<T>* root, T val){
     return returnTreeFromMatchingValue(root->left, val);
     else
     return returnTreeFromMatchingValue(root->right, val);
+}
+
+template <class T>
+void convertToList(Node<T>* node, ConcreteDoublyLinkedList<T>& list) {
+    if (node == nullptr) {
+        return;
+    }
+    convertToList(node->left, list);
+    list.insertAtFirst(node->data);
+    convertToList(node->right, list);
 }
 
 int main () {
@@ -98,6 +111,20 @@ int main () {
     subtree.setRoot(matchingNode);
     subtree.preorderDisplay();
     subtree.setRoot(nullptr);
-    
+
+    BinarySearchTree<int> convertThis;
+    convertThis.insert(10);
+    convertThis.insert(5);
+    convertThis.insert(3);
+    convertThis.insert(99);
+    convertThis.insert(7);
+    convertThis.insert(2);
+    cout << "\nTree to convert: ";
+    convertThis.preorderDisplay();
+    ConcreteDoublyLinkedList<int> list;
+    convertToList(convertThis.getRoot(), list);
+    cout << "\nConverted list: ";
+    list.display();
+
     return 0;
 }
