@@ -165,19 +165,23 @@ protected:
   // function with the size of the heap as a parameter and it will heapify the
   // heap accordingly.
   void MaxHeapify(int i, int size) {
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-    if (left < size && arr[left] > arr[largest])
-      largest = left;
-    if (right < size && arr[right] > arr[largest])
-      largest = right;
-    if (largest != i) {
+    while (true) {
+      int largest = i;
+      int left = 2 * i + 1;
+      int right = 2 * i + 2;
+
+      if (left < size && arr[left] > arr[largest])
+        largest = left;
+      if (right < size && arr[right] > arr[largest])
+        largest = right;
+
+      if (largest == i)
+        break;
+
       swap(i, largest);
-      MaxHeapify(largest, size);
+      i = largest;
     }
   }
-
   // basic itc concept of swapping two elements in an array using a temporary
   // variable.
   void swap(int i, int largest) {
